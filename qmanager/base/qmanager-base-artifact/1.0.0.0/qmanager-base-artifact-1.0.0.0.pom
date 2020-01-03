@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>qmanager.base</groupId>
+    <artifactId>qmanager-base-artifact</artifactId>
+    <version>1.0.0.0</version>
+    <packaging>pom</packaging>
+    <name>QManager Maven Paren POM</name>
+    <description>QManager Maven Paren POM</description>
+
+    <developers>
+        <developer>
+            <name>Osaid</name>
+            <email>osaid.1992.116@gmail.com</email>
+            <organization>QManager software</organization>
+            <organizationUrl>https://ToDo</organizationUrl>
+        </developer>
+        <developer>
+            <name>Ahmad</name>
+            <email>Todo@Todo.com</email>
+            <organization>QManager software</organization>
+            <organizationUrl>https://ToDo</organizationUrl>
+        </developer>
+    </developers>
+
+
+    <properties>
+        <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
+        <github.global.server>github</github.global.server>
+    </properties>
+
+
+    <distributionManagement>
+        <repository>
+            <id>internal.repo</id>
+            <name>Temporary Staging Repository</name>
+            <url>file://${project.build.directory}/mvn-repo</url>
+        </repository>
+    </distributionManagement>
+
+
+    <build>
+        <!--pluginManagement-->
+            <plugins>
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>${maven-deploy-plugin.version}</version>
+                    <configuration>
+                        <altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>com.github.github</groupId>
+                    <artifactId>site-maven-plugin</artifactId>
+                    <version>0.12</version>
+                    <configuration>
+                        <message>Maven artifacts for ${project.version}</message>  <!-- git commit message -->
+                        <noJekyll>true</noJekyll>                                  <!-- disable webpage processing -->
+                        <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory> <!-- matches distribution management repository url above -->
+                        <branch>refs/heads/mvn-repo</branch>                       <!-- remote branch name -->
+                        <includes><include>**/*</include></includes>
+                        <repositoryName>mvn-repo</repositoryName>      <!-- github repo name -->
+                        <repositoryOwner>qmanager-dev</repositoryOwner>    <!-- github username  -->
+                    </configuration>
+                    <executions>
+                        <!-- run site-maven-plugin's 'site' target as part of the build's normal 'deploy' phase -->
+                        <execution>
+                            <goals>
+                                <goal>site</goal>
+                            </goals>
+                            <phase>deploy</phase>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        <!--/pluginManagement-->
+    </build>
+
+
+
+</project>
