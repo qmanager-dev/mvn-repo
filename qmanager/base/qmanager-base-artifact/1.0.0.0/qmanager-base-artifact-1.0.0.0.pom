@@ -42,6 +42,18 @@
     </distributionManagement>
 
 
+    <repositories>
+        <repository>
+            <id>qmanager-dev-mvn-repo</id>
+            <url>https://raw.github.com/qmanager-dev/qmanager-dev/mvn-repo/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+
+
     <build>
         <!--pluginManagement-->
             <plugins>
